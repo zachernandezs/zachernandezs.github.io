@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dotdesk</title>
+<meta name="description" content="A dot-matrix pin board with a Markdown notepad, Pomodoro timer, recurring tasks, a day plan and a clock. Connects to your Obsidian vault.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230a0b0c%22/%3E%3Ccircle%20cx%3D%227%22%20cy%3D%227%22%20r%3D%223.3%22%20fill%3D%22%231a9bd0%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%227%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%2225%22%20cy%3D%227%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%227%22%20cy%3D%2216%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%223.3%22%20fill%3D%22%231a9bd0%22/%3E%3Ccircle%20cx%3D%2225%22%20cy%3D%2216%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%227%22%20cy%3D%2225%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2225%22%20r%3D%223.3%22%20fill%3D%22%237d8187%22/%3E%3Ccircle%20cx%3D%2225%22%20cy%3D%2225%22%20r%3D%223.3%22%20fill%3D%22%231a9bd0%22/%3E%3C/svg%3E">
 <style>
 /* Layout: full-bleed dot-matrix pin board; Obsidian-style ribbon on the left; tool palette top-centre;
@@ -510,6 +512,35 @@ input[type="range"]{accent-color:var(--accent);width:130px}
 .vault-box div{flex:1;min-width:0;font-size:12.5px;color:var(--muted)}
 .vault-box strong{display:block;color:var(--text);font-weight:500;font-size:13px}
 .btn-row{display:flex;flex-wrap:wrap;gap:8px}
+.vault-ways{display:flex;flex-direction:column;gap:8px}
+.way{display:flex;flex-direction:column;gap:10px;padding:11px 12px;border:1px solid var(--line-2);border-radius:10px;background:var(--bg)}
+.way.off{opacity:.55}
+.way-head{display:flex;align-items:center;gap:12px}
+.way-head>.i{color:var(--muted)}
+.way-head>div{flex:1;min-width:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.way-head strong{display:block;font-size:13px;font-weight:500;color:var(--text)}
+.way-tag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:999px;font:600 9.5px/16px var(--font-ui);letter-spacing:.08em;text-transform:uppercase;vertical-align:1px;background:var(--accent-wash);color:var(--accent)}
+.way-form{display:flex;flex-direction:column;gap:9px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.way-form .set-row{grid-template-columns:90px minmax(0,1fr)}
+.way-form ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:12px;line-height:1.5;color:var(--muted)}
+.way-form a{color:var(--accent)}
+.way-form code{font:11.5px var(--font-mono);color:var(--text)}
+.way-act{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.way-msg{flex:1;min-width:160px;font-size:12px;line-height:1.45;color:var(--orange)}
+.way-msg.ok{color:var(--green)}
+.vb{display:flex;flex-direction:column;gap:8px}
+.vb-path{display:flex;flex-wrap:wrap;align-items:center;gap:2px;font-size:12px;color:var(--faint)}
+.vb-path button{padding:2px 5px;border-radius:5px;color:var(--accent)}
+.vb-path button:hover{background:var(--hover)}
+.vb-path b{padding:2px 5px;font-weight:500;color:var(--text)}
+.vb .txt-in{width:100%}
+.vb-list{height:min(50vh,400px);overflow:auto;padding:4px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.vb-it{width:100%;display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:6px;text-align:left;font-size:13px;color:var(--text)}
+.vb-it span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vb-it:hover,.vb-it:focus-visible{background:var(--hover);outline:none}
+.vb-it .i{width:15px;height:15px;color:var(--faint)}
+.vb-it.dir .i{color:var(--purple)}
+.vb-note{padding:18px 10px;text-align:center;font-size:12.5px;color:var(--faint)}
 #toasts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:8000;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:max-content;max-width:calc(100vw - 32px)}
 .toast{pointer-events:auto;display:flex;align-items:center;gap:14px;padding:9px 10px 9px 16px;background:var(--pane-2);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 16px 40px -12px var(--shadow);font-size:13px;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;max-width:100%}
 .toast.in{opacity:1;transform:none}
@@ -839,6 +870,9 @@ const ICONS = {
   chevL: '<path d="m15 18-6-6 6-6"/>',
   chevR: '<path d="m9 18 6-6-6-6"/>',
   chevDown: '<path d="m6 9 6 6 6-6"/>',
+  file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>',
+  plug: '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  ext: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
   planner: '<path d="M4 3v18"/><rect x="8" y="4" width="12" height="6" rx="1.5"/><rect x="8" y="13" width="9" height="7" rx="1.5"/>',
   check: '<path d="M20 6 9 17l-5-5"/>',
   bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
@@ -857,9 +891,9 @@ $$('i[data-ico]').forEach(el => { el.outerHTML = ico(el.dataset.ico); });
    Settings
    ===================================================================== */
 const DEF_SETTINGS = {
-  vaultName: 'Obsidian Vault',
-  dailyFolder: 'Daily Notes',
-  dailyFormat: 'YYYY/MM/YYYY-MM-DD',
+  vaultName: '',
+  dailyFolder: '',
+  dailyFormat: 'YYYY-MM-DD',
   dailyTemplate: '',
   notesFolder: 'Inbox',
   appendHeading: true,
@@ -961,54 +995,124 @@ const IDB = {
   async del(k) { const db = await this.open(); return new Promise((res, rej) => { const t = db.transaction('kv', 'readwrite'); t.objectStore('kv').delete(k); t.oncomplete = res; t.onerror = () => rej(t.error); }); }
 };
 
+const REST_DEFAULT = 'https://127.0.0.1:27124';
 const Vault = {
-  supported: typeof window.showDirectoryPicker === 'function',
-  handle: null,
-  perm: 'none',
+  folderSupported: typeof window.showDirectoryPicker === 'function',
+  mode: 'none',                       // 'none' | 'folder' | 'rest'
+  handle: null, perm: 'none',         // folder access (Chrome, Edge, Opera)
+  rest: { url: REST_DEFAULT, key: '' }, restState: 'unknown', lastPing: 0,   // Local REST API plugin (any browser)
   async init() {
-    if (!this.supported) return this.ui();
-    try {
-      const h = await IDB.get('vault');
-      if (h) { this.handle = h; this.perm = await h.queryPermission({ mode: 'readwrite' }); }
-    } catch (e) { /* storage unavailable */ }
+    const cfg = store.get('vault', null);
+    if (cfg && cfg.mode === 'rest' && cfg.key) {
+      this.mode = 'rest'; this.rest = { url: cfg.url || REST_DEFAULT, key: cfg.key };
+      await this.ping();
+    } else if (this.folderSupported) {
+      try {
+        const h = await IDB.get('vault');
+        if (h) { this.mode = 'folder'; this.handle = h; this.perm = await h.queryPermission({ mode: 'readwrite' }); }
+      } catch (e) { /* storage unavailable */ }
+    }
     this.ui();
     if (this.ready()) Cal.invalidate();
   },
-  ready() { return !!this.handle && this.perm === 'granted'; },
-  async usable() {
-    if (!this.handle) return false;
-    if (this.perm === 'granted') return true;
-    try { this.perm = await this.handle.requestPermission({ mode: 'readwrite' }); } catch (e) { return false; }
-    this.ui();
-    if (this.perm === 'granted') Cal.invalidate();
-    return this.perm === 'granted';
+  ready() {
+    if (this.mode === 'folder') return !!this.handle && this.perm === 'granted';
+    if (this.mode === 'rest') return this.restState === 'ok';
+    return false;
   },
-  async connect() {
-    if (!this.supported) {
-      toast('Folder access needs Chrome or Edge. Notes still reach Obsidian through obsidian:// links.', { kind: 'warn', ms: 7000 });
+  async usable() {
+    if (this.mode === 'folder') {
+      if (!this.handle) return false;
+      if (this.perm === 'granted') return true;
+      try { this.perm = await this.handle.requestPermission({ mode: 'readwrite' }); } catch (e) { return false; }
+      this.ui();
+      if (this.perm === 'granted') Cal.invalidate();
+      return this.perm === 'granted';
+    }
+    if (this.mode === 'rest') {
+      if (this.restState === 'ok' && Date.now() - this.lastPing < 15000) return true;
+      if (this.restState === 'badkey') return false;
+      const was = this.restState;
+      await this.ping();
+      if (this.restState === 'ok' && was !== 'ok') Cal.invalidate();
+      return this.restState === 'ok';
+    }
+    return false;
+  },
+  problem() {
+    if (this.mode === 'rest') return this.restState === 'badkey'
+      ? 'Obsidian rejected the API key. Paste it again in Settings.'
+      : "Dotdesk can't reach Obsidian. Check that Obsidian is open and the Local REST API plugin is on.";
+    if (this.mode === 'folder') return 'Dotdesk needs permission to use your vault folder again. Click the gem in the left bar.';
+    return 'Connect your vault first. Click the gem in the left bar.';
+  },
+  label() { return this.mode === 'folder' && this.handle ? this.handle.name : this.mode === 'rest' ? 'Obsidian (Local REST API)' : ''; },
+
+  /* Local REST API plugin */
+  enc: p => p.split('/').filter(Boolean).map(encodeURIComponent).join('/'),
+  async restFetch(path, o = {}) {
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), o.timeout || 8000);
+    try {
+      return await fetch(this.rest.url.replace(/\/+$/, '') + path, {
+        method: o.method || 'GET', body: o.body, signal: ctrl.signal, cache: 'no-store', credentials: 'omit',
+        headers: Object.assign({ Authorization: 'Bearer ' + this.rest.key }, o.headers || {})
+      });
+    } catch (e) {
+      if (this.mode === 'rest' && path !== '/') { this.restState = 'down'; this.ui(); }
+      throw new Error("Obsidian didn't answer");
+    } finally { clearTimeout(timer); }
+  },
+  async ping() {
+    try {
+      const r = await this.restFetch('/', { timeout: 3000 });
+      if (r.status === 401 || r.status === 429) this.restState = 'badkey';
+      else {
+        const j = await r.json();
+        this.restState = j && j.service && j.authenticated ? 'ok' : j && j.service ? 'badkey' : 'down';
+      }
+    } catch (e) { this.restState = 'down'; }
+    this.lastPing = Date.now();
+    this.ui();
+    return this.restState;
+  },
+  async connectRest(url, key) {
+    const prev = { mode: this.mode, rest: this.rest, restState: this.restState };
+    this.mode = 'rest'; this.rest = { url: (url || REST_DEFAULT).trim().replace(/\/+$/, ''), key: key.trim() };
+    const st = await this.ping();
+    if (st !== 'ok') { Object.assign(this, prev); this.ui(); return st; }
+    store.set('vault', { mode: 'rest', url: this.rest.url, key: this.rest.key });
+    this.handle = null; this.perm = 'none';
+    try { await IDB.del('vault'); } catch (e) { }
+    try {   // only works when the plugin allows access to the .obsidian folder
+      const cfg = await this.read('.obsidian/daily-notes.json');
+      if (cfg) this.applyDailyConfig(JSON.parse(cfg));
+    } catch (e) { }
+    saveSettings(); this.ui(); Cal.invalidate(); Notes.renderCrumb();
+    return st;
+  },
+
+  /* Folder access */
+  async connectFolder() {
+    if (!this.folderSupported) {
+      toast("This browser can't open folders. Use the Local REST API plugin instead.", { kind: 'warn', ms: 7000 });
       return false;
     }
     let h;
     try { h = await window.showDirectoryPicker({ id: 'dotdesk-vault', mode: 'readwrite' }); }
     catch (e) {
       if (e.name === 'AbortError') return false;
-      toast("This page isn't allowed to open folders. Open the downloaded Dotdesk file in Chrome or Edge to connect your vault.", { kind: 'warn', ms: 8000 });
+      toast("This page isn't allowed to open folders. Try the Local REST API plugin instead.", { kind: 'warn', ms: 8000 });
       return false;
     }
-    this.handle = h; this.perm = 'granted';
+    this.mode = 'folder'; this.handle = h; this.perm = 'granted';
+    store.del('vault');
     try { await IDB.set('vault', h); } catch (e) { /* remembered for this session only */ }
     S.vaultName = h.name;
     let msg = `Connected to ${h.name}.`;
     try {
       await h.getDirectoryHandle('.obsidian');
       const cfg = await this.read('.obsidian/daily-notes.json');
-      if (cfg) {
-        const c = JSON.parse(cfg);
-        if (c.folder !== undefined) S.dailyFolder = c.folder || '';
-        if (c.format) S.dailyFormat = c.format;
-        S.dailyTemplate = c.template || '';
-        msg += ` Daily notes go to ${dailyPath(new Date())}.`;
-      }
+      if (cfg) { this.applyDailyConfig(JSON.parse(cfg)); msg += ` Daily notes go to ${dailyPath(new Date())}.`; }
     } catch (e) {
       msg += " There's no .obsidian folder here, so check that you picked the vault's top folder.";
     }
@@ -1016,8 +1120,15 @@ const Vault = {
     toast(msg, { ms: 7000 });
     return true;
   },
+  applyDailyConfig(c) {
+    if (!c || typeof c !== 'object') return;
+    if (c.folder !== undefined) S.dailyFolder = c.folder || '';
+    if (c.format) S.dailyFormat = c.format;
+    S.dailyTemplate = c.template || '';
+  },
   async disconnect() {
-    this.handle = null; this.perm = 'none';
+    this.mode = 'none'; this.handle = null; this.perm = 'none'; this.restState = 'unknown';
+    store.del('vault');
     try { await IDB.del('vault'); } catch (e) { }
     this.ui(); Cal.invalidate();
   },
@@ -1026,7 +1137,16 @@ const Vault = {
     for (const p of parts) dir = await dir.getDirectoryHandle(p, { create });
     return dir;
   },
+
+  /* file operations, same for both connection types */
   async read(path) {
+    if (this.mode === 'rest') {
+      const r = await this.restFetch('/vault/' + this.enc(path));
+      if (r.status === 404) return null;
+      if (r.status === 401) { this.restState = 'badkey'; this.ui(); }
+      if (!r.ok) throw new Error(r.status === 403 ? 'Obsidian refused access to that file' : `Obsidian answered ${r.status}`);
+      return await r.text();
+    }
     const parts = path.split('/').filter(Boolean);
     try {
       const dir = await this.dirOf(parts.slice(0, -1), false);
@@ -1038,24 +1158,53 @@ const Vault = {
     }
   },
   async write(path, text) {
+    if (this.mode === 'rest') {
+      const r = await this.restFetch('/vault/' + this.enc(path), { method: 'PUT', headers: { 'Content-Type': 'text/markdown; charset=utf-8' }, body: text });
+      if (!r.ok) throw new Error(`Obsidian answered ${r.status}`);
+      return;
+    }
     const parts = path.split('/').filter(Boolean);
     const dir = await this.dirOf(parts.slice(0, -1), true);
     const fh = await dir.getFileHandle(parts[parts.length - 1], { create: true });
     const w = await fh.createWritable();
     await w.write(text); await w.close();
   },
+  // folders and Markdown notes directly inside dirPath ('' is the vault root)
+  async list(dirPath) {
+    const folders = [], files = [];
+    if (this.mode === 'rest') {
+      const r = await this.restFetch('/vault/' + (dirPath ? this.enc(dirPath) + '/' : ''));
+      if (r.status === 404) return { folders, files };
+      if (!r.ok) throw new Error(`Obsidian answered ${r.status}`);
+      const j = await r.json();
+      for (const f of (j && j.files) || []) {
+        if (f.endsWith('/')) folders.push(f.slice(0, -1)); else files.push(f);
+      }
+    } else {
+      try {
+        const dir = await this.dirOf(dirPath.split('/').filter(Boolean), false);
+        for await (const [name, h] of dir.entries()) (h.kind === 'directory' ? folders : files).push(name);
+      } catch (e) { if (e.name !== 'NotFoundError') throw e; }
+    }
+    const byName = (x, y) => x.localeCompare(y, undefined, { sensitivity: 'base', numeric: true });
+    return { folders: folders.filter(n => !n.startsWith('.')).sort(byName), files: files.sort(byName) };
+  },
   async names(dirPath) {
-    const set = new Set();
-    try {
-      const dir = await this.dirOf(dirPath.split('/').filter(Boolean), false);
-      for await (const [name, h] of dir.entries()) if (h.kind === 'file') set.add(name);
-    } catch (e) { }
-    return set;
+    try { const { files } = await this.list(dirPath); return new Set(files); } catch (e) { return new Set(); }
+  },
+  async openInObsidian(path) {
+    if (this.mode === 'rest' && this.ready()) {
+      try { const r = await this.restFetch('/open/' + this.enc(path), { method: 'POST' }); if (r.ok) return; } catch (e) { }
+    }
+    openUri(obsUri('open', { file: path.replace(/\.md$/i, '') }));
   },
   ui() {
     const led = $('#rb-led'), btn = $('#rb-vault');
-    led.className = 'rb-led' + (this.ready() ? ' ok' : this.handle ? ' wait' : '');
-    btn.title = this.ready() ? `Vault connected: ${this.handle.name}` : this.handle ? `Click to reconnect ${this.handle.name}` : 'Connect your Obsidian vault folder';
+    led.className = 'rb-led' + (this.ready() ? ' ok' : this.mode !== 'none' ? ' wait' : '');
+    btn.title = this.ready() ? `Vault connected: ${this.label()}`
+      : this.mode === 'folder' ? `Click to reconnect ${this.handle ? this.handle.name : 'your vault'}`
+      : this.mode === 'rest' ? (this.restState === 'badkey' ? 'Obsidian rejected the API key' : "Obsidian isn't reachable right now")
+      : 'Connect your Obsidian vault';
     const box = $('#vault-box');
     if (box) renderVaultBox(box);
   }
@@ -1180,7 +1329,7 @@ function toast(msg, { action, kind, ms = 4200 } = {}) {
   t = setTimeout(close, action ? ms + 3000 : ms);
   return close;
 }
-function modal({ title, body, actions, wide }) {
+function modal({ title, body, actions, wide, mount }) {
   return new Promise(res => {
     const back = document.createElement('div');
     back.className = 'modal-back';
@@ -1201,6 +1350,7 @@ function modal({ title, body, actions, wide }) {
     document.body.append(back);
     const pri = $('.modal-act .primary, .modal-act .danger', back);
     (pri || $('.modal-act button', back)).focus();
+    if (mount) mount(done, back);
   });
 }
 const confirmBox = (title, text, ok = 'OK', danger = false) =>
@@ -2159,6 +2309,7 @@ const Notes = (() => {
     const t = cur();
     menu(e.currentTarget, [
       { label: 'Open a note from the vault…', icon: 'folder', fn: openFromVault },
+      t.path ? { label: 'Show in Obsidian', icon: 'ext', fn: () => Vault.openInObsidian(t.path) } : null,
       { label: "Open today's daily note", icon: 'today', fn: () => openDaily(new Date()) },
       '-',
       { label: 'Copy as Markdown', icon: 'copy', fn: () => copyText(t.content, 'Markdown copied.') },
@@ -2190,7 +2341,7 @@ const Notes = (() => {
       return;
     }
     await sendToObsidian(path, '\n' + block, { append: true });
-    toast(`Sent to Obsidian: ${path}`, { action: clear });
+    toast(Vault.mode === 'rest' ? `Obsidian's REST API didn't answer, so this went through an obsidian:// link to ${path}.` : `Sent to Obsidian: ${path}`, { action: clear, kind: Vault.mode === 'rest' ? 'warn' : undefined });
   }
   async function saveNote() {
     const t = cur();
@@ -2221,7 +2372,7 @@ const Notes = (() => {
     }
     const path = t.path || (joinPath(S.notesFolder, safeName(t.title)) + '.md');
     await sendToObsidian(path, t.content, { overwrite: !!t.path });
-    toast(`Sent to Obsidian as ${path}`);
+    toast(Vault.mode === 'rest' ? `Obsidian's REST API didn't answer, so this went through an obsidian:// link as ${path}.` : `Sent to Obsidian as ${path}`, { kind: Vault.mode === 'rest' ? 'warn' : undefined });
   }
   async function reloadFromVault() {
     const t = cur(); if (!t.path || !await Vault.usable()) return;
@@ -2231,15 +2382,18 @@ const Notes = (() => {
     t.content = t.base = disk; load(); save();
   }
   async function openFromVault() {
-    if (!await Vault.usable()) { toast('Connect your vault folder first. You can do that from the gem button on the left.'); return; }
+    if (!await Vault.usable()) {
+      toast(Vault.problem(), { kind: Vault.mode === 'none' ? undefined : 'warn', ms: 6000 });
+      if (Vault.mode !== 'folder') openSettings();
+      return;
+    }
+    const path = await pickVaultNote();
+    if (!path) return;
     try {
-      const [fh] = await window.showOpenFilePicker({ startIn: Vault.handle, types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }] });
-      const text = await (await fh.getFile()).text();
-      const parts = await Vault.handle.resolve(fh);
-      const title = fh.name.replace(/\.md$/i, '');
-      if (!parts) { open({ title, content: text }); toast('That file is outside your vault, so it opened as a draft.'); return; }
-      open({ title, content: text, path: parts.join('/'), base: text });
-    } catch (e) { if (e.name !== 'AbortError') toast(`Couldn't open that file: ${e.message}`, { kind: 'warn' }); }
+      const text = await Vault.read(path);
+      if (text === null) { toast(`${path} isn't in the vault any more.`, { kind: 'warn' }); return; }
+      open({ title: baseName(path), content: text, path, base: text });
+    } catch (e) { toast(`Couldn't open ${path}: ${e.message}.`, { kind: 'warn' }); }
   }
   async function openDaily(d) {
     const path = dailyPath(d);
@@ -2297,7 +2451,7 @@ const Pomo = (() => {
     return `<line class="pm-tk${mj ? ' mj' : ''}" x1="${(110 + Math.sin(a) * r0).toFixed(2)}" y1="${(110 - Math.cos(a) * r0).toFixed(2)}" x2="${(110 + Math.sin(a) * r1v).toFixed(2)}" y2="${(110 - Math.cos(a) * r1v).toFixed(2)}"/>`;
   }).join('');
 
-  /* sound: synthesised so the file works offline */
+  /* sound: synthesized so the file works offline */
   function audio() {
     const Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return null;
@@ -2979,22 +3133,129 @@ const Cal = (() => {
 })();
 
 /* =====================================================================
+   Vault browser: pick a note, works with both connection types
+   ===================================================================== */
+function pickVaultNote() {
+  const body = document.createElement('div');
+  body.className = 'vb';
+  body.innerHTML = `<div class="vb-path" id="vb-path"></div>
+    <input class="txt-in" id="vb-filter" placeholder="Filter this folder" autocomplete="off" spellcheck="false" aria-label="Filter this folder">
+    <div class="vb-list" id="vb-list"></div>`;
+  return modal({
+    title: 'Open a note', body, wide: true,
+    actions: [{ label: 'Cancel', value: null }],
+    mount(done) {
+      let dir = '', entries = { folders: [], files: [] }, token = 0;
+      const list = $('#vb-list', body), filter = $('#vb-filter', body);
+      const crumbs = () => {
+        const parts = dir ? dir.split('/') : [];
+        $('#vb-path', body).innerHTML = `<button data-go="">${esc(Vault.label() || 'Vault')}</button>` +
+          parts.map((p, i) => `<span>/</span>${i === parts.length - 1 ? `<b>${esc(p)}</b>` : `<button data-go="${esc(parts.slice(0, i + 1).join('/'))}">${esc(p)}</button>`}`).join('');
+      };
+      const draw = () => {
+        const q = filter.value.trim().toLowerCase(), m = n => !q || n.toLowerCase().includes(q);
+        const folders = entries.folders.filter(m), files = entries.files.filter(n => /\.md$/i.test(n) && m(n));
+        const LIMIT = 300, all = [...folders.map(n => ['dir', n]), ...files.map(n => ['md', n])], shown = all.slice(0, LIMIT);
+        list.innerHTML = (dir ? `<button class="vb-it dir" data-up>${ico('up')}<span>Up one folder</span></button>` : '') +
+          shown.map(([k, n]) => `<button class="vb-it ${k}" data-name="${esc(n)}" data-kind="${k}">${ico(k === 'dir' ? 'folder' : 'file')}<span>${esc(k === 'md' ? n.replace(/\.md$/i, '') : n)}</span></button>`).join('') +
+          (all.length > LIMIT ? `<div class="vb-note">${all.length - LIMIT} more. Type to filter.</div>` : '') +
+          (!all.length ? `<div class="vb-note">${q ? 'Nothing here matches.' : 'No notes in this folder.'}</div>` : '');
+      };
+      const go = async d => {
+        dir = d; filter.value = ''; crumbs();
+        const my = ++token;
+        list.innerHTML = '<div class="vb-note">Loading…</div>';
+        try { const res = await Vault.list(dir); if (my !== token) return; entries = res; draw(); }
+        catch (e) { if (my === token) list.innerHTML = `<div class="vb-note">Couldn't read this folder: ${esc(e.message)}.</div>`; }
+      };
+      body.addEventListener('click', e => {
+        const c = e.target.closest('[data-go]'); if (c) { go(c.dataset.go); return; }
+        if (e.target.closest('[data-up]')) { go(dir.split('/').slice(0, -1).join('/')); return; }
+        const it = e.target.closest('[data-name]'); if (!it) return;
+        const p = joinPath(dir, it.dataset.name);
+        if (it.dataset.kind === 'dir') go(p); else done(p);
+      });
+      filter.addEventListener('input', draw);
+      filter.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); const first = $('.vb-it[data-name]', list); if (first) first.click(); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); const first = $('.vb-it', list); if (first) first.focus(); }
+      });
+      list.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault();
+        const items = $$('.vb-it', list), i = items.indexOf(document.activeElement);
+        const n = items[i + (e.key === 'ArrowDown' ? 1 : -1)];
+        if (n) n.focus(); else if (e.key === 'ArrowUp') filter.focus();
+      });
+      filter.focus();
+      go('');
+    }
+  });
+}
+
+/* =====================================================================
    Settings
    ===================================================================== */
+const vaultForm = { open: false, url: '', key: '', msg: '', ok: false };
 function renderVaultBox(box) {
-  const name = Vault.handle ? Vault.handle.name : '';
-  box.innerHTML = `${ico('gem')}<div><strong>${Vault.ready() ? esc(name) : Vault.handle ? esc(name) + ' (needs permission)' : 'No vault folder connected'}</strong>${
-    Vault.ready() ? 'Dotdesk reads and writes notes in this folder.' :
-    Vault.handle ? 'Your browser asks again after a restart. Reconnect to keep writing.' :
-    Vault.supported ? 'Connect it to write notes directly. Until then, notes go through obsidian:// links.' :
-    "This browser can't open folders. Notes go through obsidian:// links instead."}</div>${
-    Vault.ready() ? `<button class="btn" id="v-disc">Disconnect</button>` :
-    Vault.handle ? `<button class="btn primary" id="v-re">Reconnect</button>` :
-    `<button class="btn primary" id="v-con"${Vault.supported ? '' : ' disabled'}>Connect folder</button>`}`;
-  const c = $('#v-con', box), r = $('#v-re', box), d = $('#v-disc', box);
-  if (c) c.onclick = async () => { if (await Vault.connect()) fillSettings(); };
-  if (r) r.onclick = () => Vault.usable();
-  if (d) d.onclick = () => Vault.disconnect();
+  if (Vault.mode !== 'none') {
+    const ok = Vault.ready();
+    const sub = Vault.mode === 'folder'
+      ? (ok ? 'Dotdesk reads and writes notes in this folder.' : 'Your browser asks again after a restart. Reconnect to keep writing.')
+      : (ok ? `Connected through the Local REST API plugin at ${esc(Vault.rest.url)}.` : esc(Vault.problem()));
+    box.innerHTML = `<div class="way"><div class="way-head">${ico(Vault.mode === 'folder' ? 'folder' : 'plug')}<div><strong>${esc(Vault.label())}${ok ? '' : ' (not connected)'}</strong>${sub}</div>
+      ${!ok ? `<button class="btn primary" id="v-re">${Vault.mode === 'folder' ? 'Reconnect' : 'Try again'}</button>` : ''}<button class="btn" id="v-disc">Disconnect</button></div></div>`;
+    const re = $('#v-re', box);
+    if (re) re.onclick = async () => { await Vault.usable(); if (Vault.ready()) Cal.invalidate(); };
+    $('#v-disc', box).onclick = () => { vaultForm.open = false; vaultForm.msg = ''; Vault.disconnect(); };
+    return;
+  }
+  const fs = Vault.folderSupported;
+  const folderWay = `<div class="way${fs ? '' : ' off'}"><div class="way-head">${ico('folder')}<div><strong>Vault folder${fs ? '<span class="way-tag">Recommended here</span>' : ''}</strong>${fs ? 'Dotdesk reads and writes your vault folder directly. Works in Chrome, Edge and Opera.' : "Not available in this browser. Chrome, Edge and Opera support it."}</div>
+    <button class="btn${fs ? ' primary' : ''}" id="v-con"${fs ? '' : ' disabled'}>Connect folder</button></div></div>`;
+  const url = vaultForm.url || Vault.rest.url || REST_DEFAULT;
+  const restWay = `<div class="way"><div class="way-head">${ico('plug')}<div><strong>Local REST API plugin${fs ? '' : '<span class="way-tag">Works in Firefox</span>'}</strong>Works in any browser while Obsidian is open, through the community plugin by Adam Coddington.</div>
+    ${vaultForm.open ? '' : `<button class="btn${fs ? '' : ' primary'}" id="v-rest-open">Set up</button>`}</div>
+    ${vaultForm.open ? `<div class="way-form">
+      <ol>
+        <li>In Obsidian, open <b>Settings → Community plugins</b>, install <b>Local REST API</b> and turn it on.</li>
+        <li>Copy the <b>API key</b> from the plugin's settings and paste it below.</li>
+        <li>The plugin uses a self-signed certificate. Open <a href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a> in a new tab once and accept the warning (in Firefox: <b>Advanced → Accept the Risk and Continue</b>). Or turn on the plugin's non-encrypted server and use <code>http://127.0.0.1:27123</code>.</li>
+        <li>If your browser asks whether this page may reach apps on your device, choose <b>Allow</b>.</li>
+      </ol>
+      <div class="set-row"><label for="v-url">Address</label><input class="txt-in" id="v-url" autocomplete="off" spellcheck="false" value="${esc(url)}"></div>
+      <div class="set-row"><label for="v-key">API key</label><input class="txt-in" id="v-key" type="password" autocomplete="off" spellcheck="false" value="${esc(vaultForm.key)}" placeholder="Paste the key from Obsidian"></div>
+      <div class="way-act"><span class="way-msg${vaultForm.ok ? ' ok' : ''}" id="v-msg" role="status">${esc(vaultForm.msg)}</span><button class="btn primary" id="v-rest-go">Connect</button></div>
+    </div>` : ''}</div>`;
+  box.innerHTML = `<div class="vault-ways">${fs ? folderWay + restWay : restWay + folderWay}</div>`;
+  const con = $('#v-con', box);
+  if (con) con.onclick = async () => { if (await Vault.connectFolder()) fillSettings(); };
+  const op = $('#v-rest-open', box);
+  if (op) op.onclick = () => { vaultForm.open = true; renderVaultBox(box); $('#v-key', box).focus(); };
+  const go = $('#v-rest-go', box);
+  if (go) {
+    const keep = () => { vaultForm.url = $('#v-url', box).value; vaultForm.key = $('#v-key', box).value; };
+    $('#v-url', box).addEventListener('input', keep);
+    $('#v-key', box).addEventListener('input', keep);
+    $('#v-key', box).addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go.click(); } });
+    go.onclick = async () => {
+      keep();
+      if (!vaultForm.key.trim()) { $('#v-msg', box).textContent = 'Paste the API key from the plugin settings first.'; return; }
+      go.disabled = true; $('#v-msg', box).className = 'way-msg'; $('#v-msg', box).textContent = 'Connecting…';
+      const st = await Vault.connectRest(vaultForm.url, vaultForm.key);
+      if (st === 'ok') {
+        vaultForm.open = false; vaultForm.msg = ''; vaultForm.key = '';
+        toast('Connected to Obsidian. Check that the daily note folder and format below match your Daily notes settings.', { ms: 8000 });
+        fillSettings();
+        return;
+      }
+      vaultForm.ok = false;
+      vaultForm.msg = st === 'badkey'
+        ? "Obsidian answered, but the API key doesn't match. Copy it again from the plugin's settings."
+        : `No answer from ${vaultForm.url || REST_DEFAULT}. Check that Obsidian is open with the plugin on, and that you accepted the certificate in step 3.`;
+      renderVaultBox(box);
+    };
+  }
 }
 let fillSettings = () => { };
 function openSettings() {
@@ -3004,7 +3265,7 @@ function openSettings() {
     <h3>Obsidian</h3>
     <div class="vault-box" id="vault-box"></div>
     <div class="set-row"><label for="s-vault">Vault name</label><input class="txt-in" id="s-vault" autocomplete="off"></div>
-    <div class="set-hint">Used for obsidian:// links when no folder is connected.</div>
+    <div class="set-hint">Used for obsidian:// links when Dotdesk can't write to the vault directly. Leave it empty to use the vault that's open in Obsidian.</div>
     <div class="set-row"><label for="s-dfolder">Daily notes folder</label><input class="txt-in" id="s-dfolder" autocomplete="off"></div>
     <div class="set-row"><label for="s-dformat">Daily note format</label><input class="txt-in" id="s-dformat" autocomplete="off" spellcheck="false"></div>
     <div class="set-hint" id="s-dprev"></div>
@@ -3065,7 +3326,11 @@ $('#import-file').addEventListener('change', async e => {
   } catch (err) { toast(`That file couldn't be imported: ${err.message}.`, { kind: 'warn' }); }
 });
 $('#rb-settings').onclick = openSettings;
-$('#rb-vault').onclick = async () => { if (Vault.ready()) openSettings(); else if (Vault.handle) await Vault.usable(); else await Vault.connect(); };
+$('#rb-vault').onclick = async () => {
+  if (Vault.mode === 'folder' && !Vault.ready()) { await Vault.usable(); return; }
+  if (Vault.mode === 'rest' && !Vault.ready() && Vault.restState !== 'badkey') { if (await Vault.usable()) { toast('Connected to Obsidian.'); return; } }
+  openSettings();
+};
 $('#rb-daily').onclick = () => Notes.openDaily(new Date());
 
 /* =====================================================================
@@ -3083,9 +3348,9 @@ function seedExamples() {
   const ex = { sample: true };
   B.items.push(
     Object.assign({ id: uid(), type: 'card', x: -500, y: -205, w: 290, h: 232, color: 1, title: 'How the board works', text: '- **V** select · **P** pen · **H** highlighter\n- **E** eraser · **T** text · **N** post-it · **C** card\n- Drag empty space to pan, **Ctrl + scroll** to zoom\n- Click a post-it to write on it' }, ex),
-    Object.assign({ id: uid(), type: 'postit', x: -150, y: -222, w: 210, h: 178, color: 3, rot: -2.2, text: 'Re-run the simulations' }, ex),
-    Object.assign({ id: uid(), type: 'postit', x: 112, y: -190, w: 196, h: 166, color: 1, rot: 1.7, text: 'Call mom' }, ex),
-    Object.assign({ id: uid(), type: 'text', x: -96, y: 52, fs: 36, color: 0, font: 'hand', text: '08/22: 1-on-1 with John D.' }, ex)
+    Object.assign({ id: uid(), type: 'postit', x: -150, y: -222, w: 210, h: 178, color: 3, rot: -2.2, text: "Draft the project outline before Friday's check-in" }, ex),
+    Object.assign({ id: uid(), type: 'postit', x: 112, y: -190, w: 196, h: 166, color: 1, rot: 1.7, text: 'Groceries: coffee, oats, lemons, rice' }, ex),
+    Object.assign({ id: uid(), type: 'text', x: -96, y: 52, fs: 36, color: 0, font: 'hand', text: 'This week: finish the first draft' }, ex)
   );
   const s1 = { id: uid(), hl: true, color: PAL[3].ink, w: 16, pts: curve(-92, 104, 110, 98, 330, 101, 24, 0.8) };
   const s2 = { id: uid(), hl: false, color: PAL[1].ink, w: 3.5, pts: curve(-182, 82, -170, 20, -110, -24, 22, 0.6) };
@@ -3094,18 +3359,18 @@ function seedExamples() {
   return {
     note: {
       id: uid(), title: 'Quick capture', sample: true,
-      content: `# Quick capture\n\nJot things down here, then send them to Obsidian:\n- **Append to today** adds this text to \`${dailyPath(new Date())}\`\n- **Save as note** creates \`${S.notesFolder}/Quick capture.md\`\n\n## Today\n- [x] Check last night's VaN3Twin run\n- [ ] Compare CAM generation rates for both rule sets\n- [ ] Update the [[MARLUP]] parts list\n\n> [!tip] Connect your vault\n> Click the gem on the left and pick your vault folder. Dotdesk then writes straight into it and dots the calendar days that have notes.\n\n==Highlights==, #tags and \`inline code\` render the way Obsidian shows them.`
+      content: `# Quick capture\n\nJot things down here, then send them to Obsidian:\n- **Append to today** adds this text to \`${dailyPath(new Date())}\`\n- **Save as note** creates \`${S.notesFolder}/Quick capture.md\`\n\n## Today\n- [x] Review yesterday's notes\n- [ ] Outline the project report\n- [ ] Add two books to the [[Reading list]]\n\n> [!tip] Connect Obsidian\n> Click the gem in the left bar. Chrome and Edge can open your vault folder directly. Firefox and other browsers connect through the Local REST API plugin.\n\n==Highlights==, #tags and \`inline code\` render the way Obsidian shows them.`
     },
     tasks: {
-      daily: [{ id: uid(), text: "Review yesterday's daily note", done: true, sample: true }, { id: uid(), text: "Write today's daily note", done: false, sample: true }, { id: uid(), text: 'Clear the Obsidian inbox', done: false, sample: true }],
-      weekly: [{ id: uid(), text: 'Back up my work results', done: false, sample: true }, { id: uid(), text: "Plan next week's simulation runs", done: false, sample: true }, { id: uid(), text: 'Tidy my Documents folder', done: true, sample: true }],
-      biweekly: [{ id: uid(), text: 'Progress meeting with boss', done: false, sample: true }]
+      daily: [{ id: uid(), text: "Review yesterday's daily note", done: true, sample: true }, { id: uid(), text: 'Two focus blocks of deep work', done: false, sample: true }, { id: uid(), text: 'Clear the inbox', done: false, sample: true }],
+      weekly: [{ id: uid(), text: 'Back up important files', done: false, sample: true }, { id: uid(), text: 'Plan next week', done: false, sample: true }, { id: uid(), text: 'Tidy the downloads folder', done: true, sample: true }],
+      biweekly: [{ id: uid(), text: 'Review long-term goals', done: false, sample: true }, { id: uid(), text: 'Clean out the fridge', done: false, sample: true }]
     },
     plan: [
       { s: 16, e: 17, title: 'Breakfast and inbox', color: '#8c9096' },
-      { s: 18, e: 23, title: 'Daily grind', color: null },
+      { s: 18, e: 23, title: 'Deep work: project draft', color: null },
       { s: 24, e: 26, title: 'Lunch', color: '#8c9096' },
-      { s: 27, e: 30, title: 'Meeting with Paul G.', color: '#f0a033' },
+      { s: 27, e: 30, title: 'Meetings and email', color: '#f0a033' },
       { s: 36, e: 39, title: 'Gym', color: '#4fc76a' }
     ].map(b => Object.assign({ id: uid(), sample: true }, b))
   };
@@ -3197,6 +3462,12 @@ setInterval(() => {
 }, 250);
 let lastHour = new Date().getHours();
 setInterval(() => { const h = new Date().getHours(); if (h !== lastHour) { lastHour = h; Tasks.render(); } }, 60000);
+setInterval(async () => {
+  if (Vault.mode !== 'rest' || Vault.restState === 'badkey' || document.hidden) return;
+  const was = Vault.restState;
+  await Vault.ping();
+  if (Vault.restState !== was) Cal.invalidate();
+}, 60000);
 
 const onResize = debounce(() => { WIN_IDS.forEach(placeWin); resizeInk(); }, 80);
 window.addEventListener('resize', onResize);
