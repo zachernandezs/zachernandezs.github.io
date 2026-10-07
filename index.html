@@ -320,15 +320,20 @@ input[type="range"]{accent-color:var(--accent);width:130px}
 
 /* ---------- tasks ---------- */
 .tk-wrap{container-type:inline-size}
-.tk{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden}
-.tcol{--c:var(--accent);display:flex;flex-direction:column;min-height:0;min-width:0;padding:12px 12px 8px;border-right:1px solid var(--line)}
-.tcol:last-child{border-right:0}
-.tcol-head{display:flex;align-items:center;gap:8px}
-.tcol-head h3{margin:0;font:600 11.5px var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
-.tcount{margin-left:auto;font:500 11px var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.tk{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-color:var(--faint) transparent}
+.tk.more-r{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 48px),transparent)}
+.tk.more-l{-webkit-mask-image:linear-gradient(to left,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 48px),transparent)}
+.tk.more-l.more-r{-webkit-mask-image:linear-gradient(to right,transparent,#000 48px,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(to right,transparent,#000 48px,#000 calc(100% - 48px),transparent)}
+.tcol{--c:var(--accent);flex:1 0 210px;display:flex;flex-direction:column;min-height:0;min-width:210px;padding:12px 12px 8px;border-right:1px solid var(--line)}
+.tcol-head{display:flex;align-items:center;gap:6px;min-width:0}
+.tcol-name{display:flex;align-items:center;gap:8px;min-width:0;margin:-3px -5px;padding:3px 5px;border-radius:6px;text-align:left;font:600 11.5px var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.tcol-name::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--c)}
+.tcol-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tcol-name:hover{background:var(--hover)}
+.tcount{margin-left:auto;flex:none;font:500 11px var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .tcol-head .ib{width:22px;height:22px;opacity:0}
 .tcol:hover .tcol-head .ib,.tcol-head .ib:focus-visible{opacity:1}
-.tcol-sub{font-size:11px;color:var(--faint);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcol-sub{font-size:11px;color:var(--faint);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tbar{height:2px;border-radius:2px;background:var(--line);margin:9px 0 6px;overflow:hidden;flex:none}
 .tbar i{display:block;height:100%;background:var(--c);transition:width .35s}
 .tlist{list-style:none;margin:0;padding:2px 0;overflow-y:auto;flex:1;min-height:30px}
@@ -339,7 +344,7 @@ input[type="range"]{accent-color:var(--accent);width:130px}
 .tki.drop-before{box-shadow:inset 0 2px 0 var(--c)}
 .tcheck{width:16px;height:16px;margin-top:1.5px;border-radius:4.5px;border:1.5px solid var(--faint);display:grid;place-items:center;flex:none;transition:background .15s,border-color .15s}
 .tcheck:hover{border-color:var(--c)}
-.tcheck .i{width:11px;height:11px;stroke-width:3.2;color:var(--on-accent);opacity:0}
+.tcheck .i{width:11px;height:11px;stroke-width:3.2;color:#0b0b0c;opacity:0}
 .tki.done .tcheck{background:var(--c);border-color:var(--c)}
 .tki.done .tcheck .i{opacity:1}
 .ttext{flex:1;min-width:0;overflow-wrap:anywhere;cursor:grab;outline:none}
@@ -354,10 +359,30 @@ input[type="range"]{accent-color:var(--accent);width:130px}
 .tadd input{flex:1;min-width:0;height:30px;background:transparent;border:0;outline:none;font-size:13px}
 .tadd input::placeholder{color:var(--faint)}
 .tadd:focus-within .i{color:var(--c)}
-@container (max-width:540px){
-  .tk{grid-template-columns:minmax(0,1fr);overflow-y:auto}
-  .tcol{border-right:0;border-bottom:1px solid var(--line)}
+.tcol-add{flex:0 0 50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--faint);border-radius:0 0 12px 0;transition:color .15s,background .15s}
+.tcol-add:hover{color:var(--accent);background:var(--accent-wash)}
+.tcol-add .i{width:16px;height:16px}
+.tcol-add span{writing-mode:vertical-rl;font:600 10px var(--font-ui);letter-spacing:.16em;text-transform:uppercase}
+.tk-empty{flex:1 0 220px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:20px 24px;font-size:12.5px;line-height:1.5;color:var(--faint);border-right:1px solid var(--line)}
+.tk-empty b{font-weight:500;color:var(--muted)}
+.tl-rep{align-self:stretch}
+.tl-rep button{flex:1;white-space:nowrap;padding:0 4px;font-size:11.5px}
+.pop .tl-rep button.on{background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}
+.pop .chk{font-size:12px;line-height:1.45}
+.tl-desks{display:flex;flex-wrap:wrap;gap:6px}
+.tl-chip{--dc:var(--muted);height:26px;max-width:100%;display:inline-flex;align-items:center;gap:6px;padding:0 10px;border:1px solid var(--line-2);border-radius:999px;font-size:12px;color:var(--muted)}
+.tl-chip::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--dc);opacity:.45}
+.tl-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-chip:hover{color:var(--text)}
+.tl-chip.on{color:var(--text);border-color:color-mix(in srgb,var(--dc) 55%,transparent);background:color-mix(in srgb,var(--dc) 14%,transparent)}
+.tl-chip.on::before{opacity:1}
+@container (max-width:460px){
+  .tk{flex-direction:column;overflow-x:hidden;overflow-y:auto}
+  .tcol{flex:none;min-width:0;border-right:0;border-bottom:1px solid var(--line)}
   .tlist{overflow:visible}
+  .tk-empty{flex:none;border-right:0;border-bottom:1px solid var(--line)}
+  .tcol-add{flex:0 0 46px;flex-direction:row;border-radius:0 0 12px 12px}
+  .tcol-add span{writing-mode:horizontal-tb}
 }
 
 /* ---------- clock + calendar ---------- */
@@ -464,7 +489,7 @@ input[type="range"]{accent-color:var(--accent);width:130px}
 .pl-foot{flex:none;padding:7px 12px;border-top:1px solid var(--line);border-radius:0 0 12px 12px;font-size:11px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
 
 /* ---------- popovers, modals, toasts ---------- */
-.menu{position:fixed;z-index:6000;min-width:220px;max-width:calc(100vw - 24px);padding:5px;background:var(--pane-2);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 18px 40px -12px var(--shadow)}
+.menu{position:fixed;z-index:6000;min-width:220px;max-height:calc(100vh - 16px);overflow-y:auto;max-width:calc(100vw - 24px);padding:5px;background:var(--pane-2);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 18px 40px -12px var(--shadow)}
 .menu hr{border:0;border-top:1px solid var(--line);margin:5px 4px}
 .menu-it{width:100%;display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;text-align:left;font-size:13px;color:var(--text)}
 .menu-it:hover:not(:disabled){background:var(--hover)}
@@ -1396,7 +1421,7 @@ function menu(anchor, items) {
     if (it === '-') { m.append(document.createElement('hr')); continue; }
     if (it.label && it.heading) { const d = document.createElement('div'); d.className = 'menu-label'; d.textContent = it.label; m.append(d); continue; }
     const b = document.createElement('button');
-    b.className = 'menu-it'; b.setAttribute('role', 'menuitem');
+    b.className = 'menu-it' + (it.danger ? ' danger' : ''); b.setAttribute('role', 'menuitem');
     b.innerHTML = `${it.icon ? ico(it.icon) : '<svg class="i" viewBox="0 0 24 24"></svg>'}<span>${esc(it.label)}</span>${it.checked ? ico('check', 'mk') : ''}`;
     b.disabled = !!it.disabled;
     b.onclick = () => { closeMenu(); it.fn(); };
@@ -1981,6 +2006,7 @@ function switchDesk(id) {
   renderAllItems(); undoUI();
   if (v) applyView(false); else fitBoard();
   applyDesk();
+  Tasks.render();
 }
 function addDesk() {
   if (DK.list.length >= MAX_DESKS) { toast(`You can have up to ${MAX_DESKS} desks. Delete one to make room.`); return; }
@@ -2003,6 +2029,7 @@ async function deleteDesk(id) {
   const i = DK.list.indexOf(d);
   if (id === deskId) switchDesk((DK.list[i + 1] || DK.list[i - 1]).id);
   DK.list.splice(DK.list.indexOf(d), 1);
+  Tasks.forgetDesk(id);
   boards.delete(id); hist.delete(id);
   store.del(bKey(id)); store.del(vKey(id));
   saveDesks(); applyDesk();
@@ -2063,7 +2090,7 @@ function defaultLayout() {
   return {
     notes: { ax: 'l', ay: 't', dx: 64, dy: 70, w: Math.min(500, Math.max(380, Math.round(vw * 0.34)), vw - 72), h: clamp(vh - 70 - tasksH - 16 - 18, 260, 540), open: !phone, min: false },
     timer: { ax: 'r', ay: 't', dx: 16, dy: 70, open: !phone, min: false },
-    tasks: { ax: 'l', ay: 'b', dx: 64, dy: 16, w: clamp(vw - 72 - clockW - 28, 380, 800), h: tasksH, open: !phone, min: false },
+    tasks: { ax: 'l', ay: 'b', dx: 64, dy: 16, w: clamp(vw - 72 - clockW - 28, 380, 900), h: tasksH, open: !phone, min: false },
     plan: { ax: 'r', ay: 't', dx: 16 + 300 + 14, dy: 70, w: 272, h: clamp(vh - 70 - 210 - 46, 300, 720), open: vw >= 1500, min: false },
     clock: { ax: 'r', ay: 'b', dx: 16, dy: 16, open: true, min: false }
   };
@@ -2611,114 +2638,254 @@ const Pomo = (() => {
 })();
 
 /* =====================================================================
-   Tasks: daily / weekly / bi-weekly
+   Tasks: named lists side by side. Each list can repeat and picks the desks that show it.
    ===================================================================== */
 const Tasks = (() => {
-  const COLS = [
-    { id: 'daily', name: 'Daily', c: 'var(--orange)', ph: 'Add a daily task' },
-    { id: 'weekly', name: 'Weekly', c: 'var(--yellow)', ph: 'Add a weekly task' },
-    { id: 'biweekly', name: 'Bi-weekly', c: 'var(--green)', ph: 'Add a bi-weekly task' }
+  const LIST_COLORS = [
+    { name: 'Orange', hex: '#f0a033' }, { name: 'Yellow', hex: '#e6c24b' }, { name: 'Green', hex: '#4fc76a' }, { name: 'Teal', hex: '#1a9bd0' },
+    { name: 'Purple', hex: '#a88bfa' }, { name: 'Pink', hex: '#f472b6' }, { name: 'Red', hex: '#ef5d6c' }, { name: 'Gray', hex: '#8c9096' }
   ];
+  const REPEATS = [
+    { id: 'none', short: 'Never' }, { id: 'daily', short: 'Daily', label: 'Every day' },
+    { id: 'weekly', short: 'Weekly', label: 'Every week' }, { id: 'biweekly', short: '2 weeks', label: 'Every 2 weeks' }
+  ];
+  const REP = Object.fromEntries(REPEATS.map(r => [r.id, r]));
   let T = store.get('tasks', null);
   const save = () => store.set('tasks', T);
   const host = $('#tk-cols');
   let dragId = null;
 
-  function ensure(sample) {
-    if (!T) {
-      const ws = weekStartOf(new Date(), 1);
-      T = { weekStart: 1, anchor: ymd(ws), cols: {} };
-      for (const c of COLS) T.cols[c.id] = { items: (sample && sample[c.id]) || [], key: '', reset: 'uncheck' };
+  // older versions had three fixed columns; they become three repeating lists shown on every desk
+  function migrate(old) {
+    if (old && Array.isArray(old.lists)) return old;
+    const out = { v: 2, weekStart: old && old.weekStart != null ? old.weekStart : 1, anchor: (old && old.anchor) || ymd(weekStartOf(new Date(), 1)), lists: [] };
+    if (old && old.cols) {
+      [['daily', 'Daily', '#f0a033'], ['weekly', 'Weekly', '#e6c24b'], ['biweekly', 'Bi-weekly', '#4fc76a']].forEach(([id, name, color]) => {
+        const c = old.cols[id]; if (!c) return;
+        out.lists.push({ id, name, color, repeat: id, reset: c.reset || 'uncheck', key: c.key || '', items: Array.isArray(c.items) ? c.items : [], desks: null });
+      });
     }
-    for (const c of COLS) if (!T.cols[c.id]) T.cols[c.id] = { items: [], key: '', reset: 'uncheck' };
+    return out;
   }
-  function period(id, now = new Date()) {
+  const shownHere = l => !l.desks || l.desks.includes(deskId);
+  const visible = () => T.lists.filter(shownHere);
+  const listById = id => T.lists.find(l => l.id === id);
+
+  function period(rep, now = new Date()) {
     const d = sod(now);
-    if (id === 'daily') return [d, addDays(d, 1)];
+    if (rep === 'daily') return [d, addDays(d, 1)];
     const ws = weekStartOf(d, T.weekStart);
-    if (id === 'weekly') return [ws, addDays(ws, 7)];
+    if (rep === 'weekly') return [ws, addDays(ws, 7)];
     const a = parseYmd(T.anchor), k = Math.floor(dayDiff(ws, a) / 14), s = addDays(a, k * 14);
     return [s, addDays(s, 14)];
   }
   const m3 = d => MONS[d.getMonth()].slice(0, 3);
-  function rangeLabel(s, e) {
-    const l = addDays(e, -1);
+  function rangeLabel(rep) {
+    const [s, e] = period(rep), l = addDays(e, -1);
+    if (rep === 'daily') return `${DOWS[s.getDay()].slice(0, 3)}, ${m3(s)} ${s.getDate()}`;
     return s.getMonth() === l.getMonth() ? `${m3(s)} ${s.getDate()} – ${l.getDate()}` : `${m3(s)} ${s.getDate()} – ${m3(l)} ${l.getDate()}`;
   }
-  function label(id) {
-    const [s, e] = period(id);
-    if (id === 'daily') return `${DOWS[s.getDay()].slice(0, 3)}, ${m3(s)} ${s.getDate()}`;
-    if (id === 'weekly') return `${rangeLabel(s, e)} · W${isoWeek(addDays(s, 3))}`;
-    return `${rangeLabel(s, e)} · W${isoWeek(addDays(s, 3))}–${isoWeek(addDays(s, 10))}`;
-  }
-  function until(id) {
-    const ms = period(id)[1] - Date.now(), m = Math.max(1, Math.round(ms / 6e4));
+  function until(rep) {
+    const ms = period(rep)[1] - Date.now(), m = Math.max(1, Math.round(ms / 6e4));
     if (m < 60) return `resets in ${m} min`;
     const h = Math.round(m / 60);
     return h < 36 ? `resets in ${h} h` : `resets in ${Math.round(h / 24)} days`;
   }
+  function scopeLabel(l) {
+    if (!l.desks) return 'All desks';
+    if (!l.desks.length) return 'Hidden on all desks';
+    if (l.desks.length === 1 && l.desks[0] === deskId) return 'Only this desk';
+    return `${l.desks.length} desks`;
+  }
+  function subLine(l) {
+    const parts = [];
+    if (l.repeat !== 'none') parts.push(`${REP[l.repeat].label} · ${until(l.repeat)}`);
+    if (DK.list.length > 1) parts.push(scopeLabel(l));
+    return parts.join(' · ') || "Doesn't repeat";
+  }
   function rollover() {
     let changed = false;
-    for (const c of COLS) {
-      const col = T.cols[c.id], key = ymd(period(c.id)[0]);
-      if (col.key !== key) {
-        if (col.key) {
-          if (col.reset === 'remove') col.items = col.items.filter(i => !i.done);
-          else col.items.forEach(i => { i.done = false; });
+    for (const l of T.lists) {
+      if (l.repeat === 'none') continue;
+      const key = ymd(period(l.repeat)[0]);
+      if (l.key !== key) {
+        if (l.key) {
+          if (l.reset === 'remove') l.items = l.items.filter(i => !i.done);
+          else l.items.forEach(i => { i.done = false; });
         }
-        col.key = key; changed = true;
+        l.key = key; changed = true;
       }
     }
     if (changed) { save(); render(); }
   }
+
   function render() {
+    const vis = visible(), hidden = T.lists.length - vis.length;
     let done = 0, total = 0;
-    host.innerHTML = COLS.map(c => {
-      const col = T.cols[c.id], n = col.items.filter(i => i.done).length;
-      done += n; total += col.items.length;
-      const pct = col.items.length ? Math.round(n / col.items.length * 100) : 0;
-      return `<div class="tcol" data-col="${c.id}" style="--c:${c.c}">
-        <div class="tcol-head"><h3>${c.name}</h3><span class="tcount">${n}/${col.items.length}</span><button class="ib" data-colmenu="${c.id}" title="${c.name} options" aria-label="${c.name} options">${ico('more')}</button></div>
-        <div class="tcol-sub" title="${esc(label(c.id))} · ${until(c.id)}">${esc(label(c.id))} · ${until(c.id)}</div>
+    const cols = vis.map(l => {
+      const n = l.items.filter(i => i.done).length, m = l.items.length;
+      done += n; total += m;
+      const pct = m ? Math.round(n / m * 100) : 0, sub = subLine(l);
+      const tip = l.repeat !== 'none' ? `${sub} · current period ${rangeLabel(l.repeat)}` : sub;
+      return `<div class="tcol" data-list="${l.id}" style="--c:${l.color}">
+        <div class="tcol-head"><button class="tcol-name" data-edit="${l.id}" title="List settings" aria-label="${esc(l.name)} settings"><span>${esc(l.name)}</span></button><span class="tcount">${n}/${m}</span><button class="ib" data-lmenu="${l.id}" title="${esc(l.name)} actions" aria-label="${esc(l.name)} actions">${ico('more')}</button></div>
+        <div class="tcol-sub" title="${esc(tip)}">${esc(sub)}</div>
         <div class="tbar"><i style="width:${pct}%"></i></div>
-        <ul class="tlist" data-col="${c.id}" aria-label="${c.name} tasks">${col.items.map(i => `<li class="tki${i.done ? ' done' : ''}" draggable="true" data-id="${i.id}"><button class="tcheck" role="checkbox" aria-checked="${!!i.done}" aria-label="Mark done">${ico('check')}</button><span class="ttext">${esc(i.text)}</span><button class="tdel" title="Delete" aria-label="Delete task">${ico('x')}</button></li>`).join('')}</ul>
-        <form class="tadd" data-col="${c.id}">${ico('plus')}<input id="tk-add-${c.id}" placeholder="${c.ph}" aria-label="${c.ph}" autocomplete="off"></form>
+        <ul class="tlist" data-list="${l.id}" aria-label="${esc(l.name)} tasks">${l.items.map(i => `<li class="tki${i.done ? ' done' : ''}" draggable="true" data-id="${i.id}"><button class="tcheck" role="checkbox" aria-checked="${!!i.done}" aria-label="Mark done">${ico('check')}</button><span class="ttext">${esc(i.text)}</span><button class="tdel" title="Delete" aria-label="Delete task">${ico('x')}</button></li>`).join('')}</ul>
+        <form class="tadd" data-list="${l.id}">${ico('plus')}<input id="tk-add-${l.id}" placeholder="Add a task" aria-label="Add a task to ${esc(l.name)}" autocomplete="off"></form>
       </div>`;
     }).join('');
-    $('#tk-sum').textContent = total ? `${done} of ${total} done` : '';
+    const empty = vis.length ? '' : `<div class="tk-empty"><b>No task lists on this desk</b>${hidden ? `${hidden} list${hidden === 1 ? ' is' : 's are'} hidden here. Show ${hidden === 1 ? 'it' : 'them'} from the ⋯ menu, or add a new list.` : 'Add a list for each project, plus one for personal things.'}</div>`;
+    host.innerHTML = cols + empty + `<button class="tcol-add" id="tk-new" title="New list" aria-label="New list">${ico('plus')}<span>New list</span></button>`;
+    $('#tk-sum').textContent = [total ? `${done} of ${total} done` : '', hidden && DK.list.length > 1 ? `${hidden} hidden here` : ''].filter(Boolean).join(' · ');
+    edges();
   }
+  // fade the side that has more lists scrolled out of view
+  function edges() {
+    const v = getComputedStyle(host).flexDirection !== 'column';
+    host.classList.toggle('more-l', v && host.scrollLeft > 4);
+    host.classList.toggle('more-r', v && host.scrollWidth - host.scrollLeft - host.clientWidth > 4);
+  }
+  host.addEventListener('scroll', edges, { passive: true });
+  new ResizeObserver(edges).observe(host);
+
+  /* lists */
+  function newList() {
+    const used = new Set(T.lists.map(l => l.color));
+    const color = (LIST_COLORS.find(c => !used.has(c.hex)) || LIST_COLORS[T.lists.length % LIST_COLORS.length]).hex;
+    const names = new Set(T.lists.map(l => l.name));
+    let n = T.lists.length + 1;
+    while (names.has(`List ${n}`)) n++;
+    const l = { id: uid(), name: `List ${n}`, color, repeat: 'none', reset: 'uncheck', key: '', items: [], desks: DK.list.length > 1 ? [deskId] : null };
+    T.lists.push(l); save(); render();
+    const col = $(`.tcol[data-list="${l.id}"]`, host);
+    if (col) { col.scrollIntoView({ inline: 'nearest', block: 'nearest' }); listEditor(l, $('.tcol-name', col), true); }
+  }
+  function deleteList(l) {
+    const i = T.lists.indexOf(l); if (i < 0) return;
+    T.lists.splice(i, 1); save(); render();
+    const n = l.items.length;
+    toast(`Deleted ${l.name}${n ? ` and its ${n} task${n === 1 ? '' : 's'}` : ''}.`, { action: { label: 'Undo', fn: () => { T.lists.splice(Math.min(i, T.lists.length), 0, l); save(); render(); } } });
+  }
+  function setShown(l, id, on) {
+    const all = DK.list.map(d => d.id);
+    let set = l.desks ? l.desks.filter(x => all.includes(x)) : all.slice();
+    if (on && !set.includes(id)) set.push(id);
+    if (!on) set = set.filter(x => x !== id);
+    l.desks = all.every(x => set.includes(x)) ? null : set;
+  }
+  function setRepeat(l, rep) {
+    l.repeat = rep;
+    l.key = rep === 'none' ? '' : ymd(period(rep)[0]);
+  }
+  function move(l, dir) {
+    const vis = visible(), i = vis.indexOf(l), other = vis[i + dir];
+    if (!other) return;
+    const a = T.lists.indexOf(l), b = T.lists.indexOf(other);
+    T.lists[a] = other; T.lists[b] = l;
+    save(); render();
+  }
+  function listEditor(l, anchor, fresh = false) {
+    if (popToggle(anchor)) return;
+    const el = document.createElement('div');
+    el.className = 'pop'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'List settings');
+    el.innerHTML = `<label class="pop-lbl" for="tl-name">List name</label>
+      <input class="txt-in" id="tl-name" maxlength="60" autocomplete="off" spellcheck="false">
+      <div class="pop-lbl">Color</div>
+      <div class="dk-sw" role="radiogroup" aria-label="List color">${LIST_COLORS.map(c => `<button class="dk-swb" data-c="${c.hex}" style="--sw:${c.hex}" role="radio" title="${c.name}" aria-label="${c.name}"></button>`).join('')}</div>
+      <div class="pop-lbl">Repeats</div>
+      <div class="seg tl-rep" role="group" aria-label="Repeats">${REPEATS.map(r => `<button data-rep="${r.id}">${r.short}</button>`).join('')}</div>
+      <label class="chk" id="tl-rm-row"><input type="checkbox" id="tl-rm"><span>Remove done tasks when it resets, instead of unchecking them</span></label>
+      ${DK.list.length > 1 ? `<div class="pop-lbl">Show on</div>
+      <div class="tl-desks"><button class="tl-chip" data-desk="all" style="--dc:var(--accent)"><span>All desks</span></button>${DK.list.map(d => `<button class="tl-chip" data-desk="${d.id}" style="--dc:${d.accent}" title="${esc(d.name)}"><span>${esc(d.name)}</span></button>`).join('')}</div>` : ''}
+      <hr>
+      <button class="menu-it danger" id="tl-del">${ico('trash')}<span>Delete list</span></button>`;
+    const name = $('#tl-name', el);
+    name.value = l.name;
+    const sync = () => {
+      el.style.setProperty('--c', l.color);
+      $$('.dk-swb', el).forEach(b => { const on = b.dataset.c === l.color; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); });
+      $$('.tl-rep button', el).forEach(b => { const on = b.dataset.rep === l.repeat; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+      $('#tl-rm-row', el).hidden = l.repeat === 'none';
+      $('#tl-rm', el).checked = l.reset === 'remove';
+      $$('.tl-chip', el).forEach(b => {
+        const on = b.dataset.desk === 'all' ? !l.desks : (!l.desks || l.desks.includes(b.dataset.desk));
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
+      });
+    };
+    const changed = () => { save(); render(); sync(); };
+    name.addEventListener('input', () => { l.name = name.value.trim() || 'Untitled list'; save(); render(); });
+    name.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); closeMenu(); } });
+    el.addEventListener('click', e => {
+      const sw = e.target.closest('.dk-swb');
+      if (sw) { l.color = sw.dataset.c; changed(); return; }
+      const rp = e.target.closest('[data-rep]');
+      if (rp) { setRepeat(l, rp.dataset.rep); changed(); return; }
+      const ch = e.target.closest('.tl-chip');
+      if (ch) {
+        if (ch.dataset.desk === 'all') l.desks = l.desks ? null : [deskId];
+        else setShown(l, ch.dataset.desk, !(!l.desks || l.desks.includes(ch.dataset.desk)));
+        changed();
+      }
+    });
+    $('#tl-rm', el).addEventListener('change', e => { l.reset = e.target.checked ? 'remove' : 'uncheck'; save(); });
+    $('#tl-del', el).onclick = () => { closeMenu(); deleteList(l); };
+    openPop(anchor, el, 'below-left');
+    sync();
+    name.focus({ preventScroll: true });
+    if (fresh) name.select();
+  }
+
+  /* Markdown: ### <list name> (<date>) followed by the checklist */
+  const listMd = l => `### ${l.name} (${ymd(new Date())})\n` + (l.items.map(i => `- [${i.done ? 'x' : ' '}] ${i.text}`).join('\n') || '- [ ] ');
+  const allMd = () => visible().map(listMd).join('\n\n');
+  const toNotepad = text => { setWin('notes', true); Notes.appendBlock(text + '\n'); };
+
+  /* events */
   function find(id) {
-    for (const c of COLS) { const items = T.cols[c.id].items, i = items.findIndex(x => x.id === id); if (i >= 0) return { col: c.id, items, i, item: items[i] }; }
+    for (const l of T.lists) { const i = l.items.findIndex(x => x.id === id); if (i >= 0) return { list: l, items: l.items, i, item: l.items[i] }; }
     return null;
   }
-  function refocusAdd(col) { const inp = $('#tk-add-' + col); if (inp) inp.focus(); }
   host.addEventListener('submit', e => {
     e.preventDefault();
-    const f = e.target.closest('.tadd'), inp = $('input', f), text = inp.value.trim();
-    if (!text) return;
-    T.cols[f.dataset.col].items.push({ id: uid(), text, done: false });
-    save(); render(); refocusAdd(f.dataset.col);
+    const f = e.target.closest('.tadd'), inp = $('input', f), text = inp.value.trim(), l = listById(f.dataset.list);
+    if (!text || !l) return;
+    l.items.push({ id: uid(), text, done: false });
+    save(); render();
+    const again = $('#tk-add-' + l.id); if (again) again.focus();
   });
   host.addEventListener('click', e => {
-    const cm = e.target.closest('[data-colmenu]');
-    if (cm) {
-      const col = T.cols[cm.dataset.colmenu];
-      menu(cm, [
-        { label: 'When the period resets', heading: true },
-        { label: 'Uncheck done tasks', checked: col.reset !== 'remove', fn: () => { col.reset = 'uncheck'; save(); } },
-        { label: 'Remove done tasks', checked: col.reset === 'remove', fn: () => { col.reset = 'remove'; save(); } },
+    if (e.target.closest('#tk-new')) { newList(); return; }
+    const ed = e.target.closest('[data-edit]');
+    if (ed) { const l = listById(ed.dataset.edit); if (l) listEditor(l, ed); return; }
+    const lm = e.target.closest('[data-lmenu]');
+    if (lm) {
+      const l = listById(lm.dataset.lmenu); if (!l) return;
+      const vis = visible(), i = vis.indexOf(l), nDone = l.items.filter(x => x.done).length;
+      menu(lm, [
+        { label: 'List settings…', icon: 'sliders', fn: () => { const b = $(`.tcol[data-list="${l.id}"] .tcol-name`, host); if (b) listEditor(l, b); } },
+        { label: 'Copy as Markdown', icon: 'copy', fn: () => copyText(listMd(l), `${l.name} copied as Markdown.`) },
+        { label: 'Insert into notepad', icon: 'notebook', fn: () => toNotepad(listMd(l)) },
         '-',
-        { label: 'Uncheck all now', icon: 'reset', fn: () => { col.items.forEach(i => { i.done = false; }); save(); render(); } },
-        { label: 'Remove done tasks now', icon: 'trash', fn: () => { col.items = col.items.filter(i => !i.done); save(); render(); } }
-      ]);
+        { label: 'Uncheck all', icon: 'reset', disabled: !nDone, fn: () => { l.items.forEach(x => { x.done = false; }); save(); render(); } },
+        { label: 'Remove done tasks', icon: 'trash', disabled: !nDone, fn: () => { l.items = l.items.filter(x => !x.done); save(); render(); } },
+        '-',
+        { label: 'Move left', icon: 'chevL', disabled: i <= 0, fn: () => move(l, -1) },
+        { label: 'Move right', icon: 'chevR', disabled: i >= vis.length - 1, fn: () => move(l, 1) },
+        DK.list.length > 1 ? { label: 'Hide on this desk', icon: 'eye', fn: () => { setShown(l, deskId, false); save(); render(); toast(`${l.name} is hidden on this desk. Bring it back from the Tasks ⋯ menu.`); } } : null,
+        '-',
+        { label: 'Delete list', icon: 'trash', danger: true, fn: () => deleteList(l) }
+      ].filter(Boolean));
       return;
     }
     const li = e.target.closest('.tki'); if (!li) return;
     const f = find(li.dataset.id); if (!f) return;
-    if (e.target.closest('.tcheck')) { f.item.done = !f.item.done; f.item.sample = false; save(); render(); const b = $(`.tki[data-id="${f.item.id}"] .tcheck`, host); if (b) b.focus(); }
-    else if (e.target.closest('.tdel')) {
+    if (e.target.closest('.tcheck')) {
+      f.item.done = !f.item.done; f.item.sample = false; save(); render();
+      const b = $(`.tki[data-id="${f.item.id}"] .tcheck`, host); if (b) b.focus();
+    } else if (e.target.closest('.tdel')) {
       f.items.splice(f.i, 1); save(); render();
-      toast(`Deleted “${f.item.text}”`, { action: { label: 'Undo', fn: () => { T.cols[f.col].items.splice(f.i, 0, f.item); save(); render(); } } });
+      toast(`Deleted “${f.item.text}”`, { action: { label: 'Undo', fn: () => { f.list.items.splice(f.i, 0, f.item); save(); render(); } } });
     }
   });
   host.addEventListener('dblclick', e => {
@@ -2731,13 +2898,13 @@ const Tasks = (() => {
       if (done) return; done = true;
       const v = tx.textContent.trim();
       if (ok && v) f.item.text = v;
-      if (ok && !v) f.items.splice(f.items.indexOf(f.item), 1);
+      if (ok && !v) f.list.items.splice(f.list.items.indexOf(f.item), 1);
       save(); render();
     };
     tx.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); commit(true); } if (ev.key === 'Escape') { ev.preventDefault(); commit(false); } });
     tx.addEventListener('blur', () => commit(true), { once: true });
   });
-  // drag to reorder, move between columns, or drop text in from elsewhere
+  // drag to reorder, move between lists, or drop text in from elsewhere
   host.addEventListener('dragstart', e => {
     const li = e.target.closest('.tki'); if (!li) return;
     dragId = li.dataset.id; li.classList.add('dragging');
@@ -2748,7 +2915,7 @@ const Tasks = (() => {
   const clearMarks = () => { $$('.drop-before', host).forEach(x => x.classList.remove('drop-before')); $$('.drop-end', host).forEach(x => x.classList.remove('drop-end')); };
   function dropTarget(list, y) { return $$('.tki:not(.dragging)', list).find(li => y < li.getBoundingClientRect().top + li.offsetHeight / 2) || null; }
   host.addEventListener('dragover', e => {
-    const list = e.target.closest('.tcol') && $('.tlist', e.target.closest('.tcol')); if (!list) return;
+    const col = e.target.closest('.tcol'), list = col && $('.tlist', col); if (!list) return;
     e.preventDefault(); e.dataTransfer.dropEffect = dragId ? 'move' : 'copy';
     clearMarks();
     const before = dropTarget(list, e.clientY);
@@ -2758,7 +2925,8 @@ const Tasks = (() => {
   host.addEventListener('drop', e => {
     const colEl = e.target.closest('.tcol'); if (!colEl) return;
     e.preventDefault();
-    const list = $('.tlist', colEl), before = dropTarget(list, e.clientY), to = T.cols[colEl.dataset.col].items;
+    const target = listById(colEl.dataset.list); if (!target) return;
+    const list = $('.tlist', colEl), before = dropTarget(list, e.clientY), to = target.items;
     clearMarks();
     let item;
     if (dragId) { const f = find(dragId); if (!f) return; item = f.item; f.items.splice(f.i, 1); }
@@ -2771,28 +2939,44 @@ const Tasks = (() => {
     if (bi >= 0) to.splice(bi, 0, item); else to.push(item);
     save(); render();
   });
-  function markdown() {
-    return COLS.map(c => `### ${c.name} (${label(c.id)})\n` + (T.cols[c.id].items.map(i => `- [${i.done ? 'x' : ' '}] ${i.text}`).join('\n') || '- [ ] ')).join('\n\n');
-  }
-  $('#tk-more').onclick = e => menu(e.currentTarget, [
-    { label: 'Copy as Markdown', icon: 'copy', fn: () => copyText(markdown(), 'Task lists copied as Markdown.') },
-    { label: 'Insert into notepad', icon: 'notebook', fn: () => { setWin('notes', true); Notes.appendBlock(markdown() + '\n'); } },
-    '-',
-    { label: 'Weeks start on', heading: true },
-    { label: 'Monday', checked: T.weekStart === 1, fn: () => setWeekStart(1) },
-    { label: 'Sunday', checked: T.weekStart === 0, fn: () => setWeekStart(0) }
-  ]);
+  $('#tk-more').onclick = e => {
+    const vis = visible(), many = DK.list.length > 1;
+    menu(e.currentTarget, [
+      { label: 'New list', icon: 'plus', fn: newList },
+      { label: 'Copy all as Markdown', icon: 'copy', disabled: !vis.length, fn: () => copyText(allMd(), 'Task lists copied as Markdown.') },
+      { label: 'Insert all into notepad', icon: 'notebook', disabled: !vis.length, fn: () => toNotepad(allMd()) },
+      ...(T.lists.length && (many || vis.length < T.lists.length) ? ['-', { label: 'Lists on this desk', heading: true },
+        ...T.lists.map(l => ({ label: l.name, checked: shownHere(l), fn: () => { setShown(l, deskId, !shownHere(l)); save(); render(); } }))] : []),
+      '-',
+      { label: 'Weeks start on', heading: true },
+      { label: 'Monday', checked: T.weekStart === 1, fn: () => setWeekStart(1) },
+      { label: 'Sunday', checked: T.weekStart === 0, fn: () => setWeekStart(0) }
+    ]);
+  };
   function setWeekStart(ws) {
     T.weekStart = ws;
     T.anchor = ymd(weekStartOf(parseYmd(T.anchor), ws));
-    for (const c of COLS) if (c.id !== 'daily') T.cols[c.id].key = ymd(period(c.id)[0]);
+    for (const l of T.lists) if (l.repeat === 'weekly' || l.repeat === 'biweekly') l.key = ymd(period(l.repeat)[0]);
     save(); render();
   }
   return {
-    init(sample) { ensure(sample); rollover(); render(); },
+    init(sample) {
+      if (!T && sample) T = { v: 2, weekStart: 1, anchor: ymd(weekStartOf(new Date(), 1)), lists: sample };
+      T = migrate(T);
+      save(); rollover(); render();
+    },
     tick() { rollover(); },
     render,
-    clearSamples() { for (const c of COLS) T.cols[c.id].items = T.cols[c.id].items.filter(i => !i.sample); save(); render(); }
+    // a deleted desk no longer counts; a list that was only on it shows everywhere again
+    forgetDesk(id) {
+      for (const l of T.lists) if (l.desks) { l.desks = l.desks.filter(x => x !== id); if (!l.desks.length) l.desks = null; }
+      save(); render();
+    },
+    clearSamples() {
+      for (const l of T.lists) l.items = l.items.filter(i => !i.sample);
+      T.lists = T.lists.filter(l => !(l.sample && !l.items.length));
+      save(); render();
+    }
   };
 })();
 
@@ -3361,11 +3545,14 @@ function seedExamples() {
       id: uid(), title: 'Quick capture', sample: true,
       content: `# Quick capture\n\nJot things down here, then send them to Obsidian:\n- **Append to today** adds this text to \`${dailyPath(new Date())}\`\n- **Save as note** creates \`${S.notesFolder}/Quick capture.md\`\n\n## Today\n- [x] Review yesterday's notes\n- [ ] Outline the project report\n- [ ] Add two books to the [[Reading list]]\n\n> [!tip] Connect Obsidian\n> Click the gem in the left bar. Chrome and Edge can open your vault folder directly. Firefox and other browsers connect through the Local REST API plugin.\n\n==Highlights==, #tags and \`inline code\` render the way Obsidian shows them.`
     },
-    tasks: {
-      daily: [{ id: uid(), text: "Review yesterday's daily note", done: true, sample: true }, { id: uid(), text: 'Two focus blocks of deep work', done: false, sample: true }, { id: uid(), text: 'Clear the inbox', done: false, sample: true }],
-      weekly: [{ id: uid(), text: 'Back up important files', done: false, sample: true }, { id: uid(), text: 'Plan next week', done: false, sample: true }, { id: uid(), text: 'Tidy the downloads folder', done: true, sample: true }],
-      biweekly: [{ id: uid(), text: 'Review long-term goals', done: false, sample: true }, { id: uid(), text: 'Clean out the fridge', done: false, sample: true }]
-    },
+    tasks: [
+      ['Website redesign', '#f0a033', 'none', [['Collect feedback on the mockups', true], ['Write the homepage copy'], ['Fix the mobile menu']]],
+      ['Personal', '#a88bfa', 'none', [['Book a dentist appointment'], ['Return the library books', true], ['Plan the weekend trip']]],
+      ['Every day', '#4fc76a', 'daily', [["Review yesterday's notes", true], ['Two focus blocks of deep work'], ['Clear the inbox']]]
+    ].map(([name, color, repeat, items]) => ({
+      id: uid(), name, color, repeat, reset: 'uncheck', key: '', desks: null, sample: true,
+      items: items.map(([text, done]) => ({ id: uid(), text, done: !!done, sample: true }))
+    })),
     plan: [
       { s: 16, e: 17, title: 'Breakfast and inbox', color: '#8c9096' },
       { s: 18, e: 23, title: 'Deep work: project draft', color: null },
