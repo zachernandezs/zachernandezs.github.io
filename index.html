@@ -3083,9 +3083,9 @@ function seedExamples() {
   const ex = { sample: true };
   B.items.push(
     Object.assign({ id: uid(), type: 'card', x: -500, y: -205, w: 290, h: 232, color: 1, title: 'How the board works', text: '- **V** select · **P** pen · **H** highlighter\n- **E** eraser · **T** text · **N** post-it · **C** card\n- Drag empty space to pan, **Ctrl + scroll** to zoom\n- Click a post-it to write on it' }, ex),
-    Object.assign({ id: uid(), type: 'postit', x: -150, y: -222, w: 210, h: 178, color: 3, rot: -2.2, text: 'Re-run the VaN3Twin scenario with the new CPM rule set' }, ex),
-    Object.assign({ id: uid(), type: 'postit', x: 112, y: -190, w: 196, h: 166, color: 1, rot: 1.7, text: 'MARLUP: go through the missing parts list' }, ex),
-    Object.assign({ id: uid(), type: 'text', x: -96, y: 52, fs: 36, color: 0, font: 'hand', text: 'Week 41: write up the CPM results' }, ex)
+    Object.assign({ id: uid(), type: 'postit', x: -150, y: -222, w: 210, h: 178, color: 3, rot: -2.2, text: 'Re-run the simulations' }, ex),
+    Object.assign({ id: uid(), type: 'postit', x: 112, y: -190, w: 196, h: 166, color: 1, rot: 1.7, text: 'Call mom' }, ex),
+    Object.assign({ id: uid(), type: 'text', x: -96, y: 52, fs: 36, color: 0, font: 'hand', text: '08/22: 1-on-1 with John D.' }, ex)
   );
   const s1 = { id: uid(), hl: true, color: PAL[3].ink, w: 16, pts: curve(-92, 104, 110, 98, 330, 101, 24, 0.8) };
   const s2 = { id: uid(), hl: false, color: PAL[1].ink, w: 3.5, pts: curve(-182, 82, -170, 20, -110, -24, 22, 0.6) };
@@ -3097,15 +3097,15 @@ function seedExamples() {
       content: `# Quick capture\n\nJot things down here, then send them to Obsidian:\n- **Append to today** adds this text to \`${dailyPath(new Date())}\`\n- **Save as note** creates \`${S.notesFolder}/Quick capture.md\`\n\n## Today\n- [x] Check last night's VaN3Twin run\n- [ ] Compare CAM generation rates for both rule sets\n- [ ] Update the [[MARLUP]] parts list\n\n> [!tip] Connect your vault\n> Click the gem on the left and pick your vault folder. Dotdesk then writes straight into it and dots the calendar days that have notes.\n\n==Highlights==, #tags and \`inline code\` render the way Obsidian shows them.`
     },
     tasks: {
-      daily: [{ id: uid(), text: "Review yesterday's daily note", done: true, sample: true }, { id: uid(), text: 'Two focus blocks on thesis writing', done: false, sample: true }, { id: uid(), text: 'Clear the Obsidian inbox', done: false, sample: true }],
-      weekly: [{ id: uid(), text: 'Back up simulation results', done: false, sample: true }, { id: uid(), text: "Plan next week's simulation runs", done: false, sample: true }, { id: uid(), text: 'Tidy the Bachelor Thesis folder', done: true, sample: true }],
-      biweekly: [{ id: uid(), text: 'Progress meeting with advisor', done: false, sample: true }, { id: uid(), text: 'Review MARLUP control parameters', done: false, sample: true }]
+      daily: [{ id: uid(), text: "Review yesterday's daily note", done: true, sample: true }, { id: uid(), text: "Write today's daily note", done: false, sample: true }, { id: uid(), text: 'Clear the Obsidian inbox', done: false, sample: true }],
+      weekly: [{ id: uid(), text: 'Back up my work results', done: false, sample: true }, { id: uid(), text: "Plan next week's simulation runs", done: false, sample: true }, { id: uid(), text: 'Tidy my Documents folder', done: true, sample: true }],
+      biweekly: [{ id: uid(), text: 'Progress meeting with boss', done: false, sample: true }]
     },
     plan: [
       { s: 16, e: 17, title: 'Breakfast and inbox', color: '#8c9096' },
-      { s: 18, e: 23, title: 'Thesis: write up CPM results', color: null },
+      { s: 18, e: 23, title: 'Daily grind', color: null },
       { s: 24, e: 26, title: 'Lunch', color: '#8c9096' },
-      { s: 27, e: 30, title: 'MARLUP parts list', color: '#f0a033' },
+      { s: 27, e: 30, title: 'Meeting with Paul G.', color: '#f0a033' },
       { s: 36, e: 39, title: 'Gym', color: '#4fc76a' }
     ].map(b => Object.assign({ id: uid(), sample: true }, b))
   };
